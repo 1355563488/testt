@@ -1,23 +1,27 @@
 <template>
-  <div class="w-[99vw] h-[55vw] flex">
+  <div class="w-[100vw] h-[55vw] flex">
     <div>
-      <img
-        class="w-[39.83vw] h-54.62vw"
-        src="../images/appm3V1L6Y3C3podIGShCo686dXRRY4i.png"
-        alt=""
-      />
+      <el-carousel class="w-[39.83vw] h-[54.62vw]">
+        <el-carousel-item
+          v-for="item in imageurl"
+          :key="item"
+          class="w-[39.83vw] h-[54.62vw]"
+        >
+          <img :src="item" alt="" class="w-[39.83vw] h-[54.62vw]" />
+        </el-carousel-item>
+      </el-carousel>
     </div>
     <!-- 右侧登录面板 -->
-    <div class="mt-[5vw] ml-[14.72vw] w-[59.9vw]">
+    <div class="mt-[5vw] ml-[14.69vw] w-[59.9vw]">
       <div><p class="text-[1.88vw] text-center">登录，即刻创造您的应用</p></div>
       <div class="mt-[5.49vw]">
-        <div class="pl-[10vw]">
+        <div class="pl-[10vw] pr-[10vw]">
           <!-- 账号框 -->
           <div>
             <el-input
               class="w-[25.45vw] h-[3.61vw]"
               v-model="input.username"
-              placeholder="账号"
+              placeholder="邮箱"
             />
           </div>
           <!-- 密码框 -->
@@ -31,19 +35,19 @@
             />
           </div>
           <!-- 协议 -->
-          <div>
+          <div class="mt-[1vw]">
             <el-checkbox v-model="checked2" class="mr-[150px]"
-              >我已阅读并同意<a href="">服务协议</a>和<a href=""
+              >我已阅读并同意<a href=" " class="text-blue">服务协议</a>和<a
+                href=""
+                class="text-blue"
                 >隐私政策</a
               ></el-checkbox
             >
           </div>
         </div>
         <!-- 登录按钮 -->
-        <div class="text-center">
-          <el-button type="primary" class="w-[30.56vw] h-[3.75vw]"
-            >登录</el-button
-          >
+        <div class="text-center mt-[3.13vw]">
+          <el-button type="primary" class="x" @click="goHome">登录</el-button>
         </div>
       </div>
     </div>
@@ -52,23 +56,64 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import { token } from "../api";
+import { token } from "../servlcee/index";
+import to from "await-to-js";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const input = ref({
-  username: "",
-  password: "",
+  username: "1355563488@qq.com",
+  password: "shengsi5151315",
 });
 
-console.log(input.value);
+const goHome = async () => {
+  const loginData = {
+    grant_type: "password",
+    username: input.value.username,
+    password: input.value.password,
+    client_id: import.meta.env.VITE_CLIENT_ID,
+    client_secret: import.meta.env.VITE_CLIENT_SECRET,
+    scope: import.meta.env.VITE_CLIENT_SCOPT,
+  };
+  const [err, res] = await to(token(loginData));
+  console.log(res.statusText);
 
-// token(input.value)
-//   .then((res) => {
-//     console.log(res);
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
+  if (res.statusText === "OK") {
+    ElNotification({
+      title: "成功",
+      message: "登录成功",
+      type: "success",
+    });
+    router.push({ name: "Home" });
+  } else {
+    ElNotification({
+      title: "错误",
+      message: "登录失败，请重新登录",
+      type: "error",
+    });
+  }
+};
 
 const checked2 = ref(false);
+
+const imageurl = ref([
+  "../../src/images/appm3V1L6Y3C3podIGShCo686dXRRY4i.png",
+  "../../src/images/app9KTBmXHMK2mtI9RHyzPDs-h0NXne1.png",
+  "../../src/images/appzx4bpYR9rpFdZULrF9EFycs2l-416.png",
+]);
 </script>
-<style></style>
+<style scoped>
+.x {
+  height: 3.89vw;
+  width: 30.59vw;
+}
+.el-carousel__item h3 {
+  color: #475669;
+  font-size: 14px;
+  opacity: 0.75;
+  margin: 0;
+}
+.el-carousel__item {
+  height: 54.9vw;
+}
+</style>

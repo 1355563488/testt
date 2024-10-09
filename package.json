@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "@iconify/json": "^2.2.257",
+    "await-to-js": "^3.0.0",
     "axios": "^1.7.7",
     "element-plus": "^2.8.4",
+    "element-ui": "^2.15.14",
     "vue": "^3.5.10",
     "vue-router": "^4.0.13"
   },
