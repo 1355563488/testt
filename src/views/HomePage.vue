@@ -3,7 +3,7 @@
     <el-container class="bg-[#f8f9fc]">
       <el-menu
         default-active="2"
-        class="el-menu-vertical-demo"
+        class="el-menu-vertical-demo h-[960px]"
         collapse="true"
         @open="handleOpen"
         @close="handleClose"
@@ -99,14 +99,51 @@
           /></el-icon>
           <template #title>自动化</template>
         </el-menu-item>
+        <el-menu-item class="text-center" index="10">
+          <Icon
+            icon="icon-park-solid:people-minus"
+            width="1vw"
+            height="1vw"
+            style="color: black"
+            class="pl-[5px]"
+          />
+        </el-menu-item>
       </el-menu>
       <el-container>
         <el-header
-          class="flex justify-between h-[4.5vw] border-b-2 border-black"
+          class="flex justify-between h-[4.5vw] border-b-2 border-black bg-[#fff]"
           ><div class="font-semibold leading-[60px] h-[60px]">代码仓库</div>
-          <router-link to="/Login">登录</router-link></el-header
+          <router-link to="/Login" class="font-semibold leading-[60px] h-[60px]"
+            >登录</router-link
+          ></el-header
         >
-        <el-main>Main</el-main>
+        <el-main class="bg-[#fff] p-0">
+          <div class="h-[2.31vw] leading-[2.31vw] relative">
+            <router-link
+              to="/Home/RecentlyVisited"
+              class="text-center focus:border-b-2 border-[#306fde] h-[2.31vw]"
+              >最近访问</router-link
+            >
+            <router-link
+              to="/Home/Warehouses"
+              class="text-center focus:border-b-2 border-[#306fde] ml-[1.5vw] h-[2.31vw]"
+              >全部仓库</router-link
+            >
+            <router-link
+              to="/Home/SourceRepositories"
+              class="text-center ml-[1.5vw] h-[2.31vw] focus:border-b-2 border-[#306fde]"
+              >开源仓库</router-link
+            >
+            <div
+              class="inline-block bg-[#2c323c] rounded-md text-white px-[5px] absolute right-[1.67vw] bottom-[0.5vw]"
+            >
+              创建代码仓库
+            </div>
+            <hr />
+          </div>
+
+          <div><router-view></router-view></div>
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -119,6 +156,6 @@ import { Icon } from "@iconify/vue/dist/iconify.js";
 <style scoped>
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
-  min-height: 400px;
+  min-height: 500px;
 }
 </style>

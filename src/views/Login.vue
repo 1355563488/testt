@@ -37,9 +37,9 @@
           <!-- 协议 -->
           <div class="mt-[1vw]">
             <el-checkbox v-model="checked2" class="mr-[150px]"
-              >我已阅读并同意<a href=" " class="text-blue">服务协议</a>和<a
+              >我已阅读并同意<a href=" " class="text-blue-600">服务协议</a>和<a
                 href=""
-                class="text-blue"
+                class="text-blue-600"
                 >隐私政策</a
               ></el-checkbox
             >
@@ -66,6 +66,7 @@ const input = ref({
   password: "shengsi5151315",
 });
 
+const checked2 = ref(false);
 const goHome = async () => {
   const loginData = {
     grant_type: "password",
@@ -76,15 +77,23 @@ const goHome = async () => {
     scope: import.meta.env.VITE_CLIENT_SCOPT,
   };
   const [err, res] = await to(token(loginData));
-  console.log(res.statusText);
 
+  console.log(checked2.value);
   if (res.statusText === "OK") {
-    ElNotification({
-      title: "成功",
-      message: "登录成功",
-      type: "success",
-    });
-    router.push({ name: "Home" });
+    if (checked2.value === true) {
+      ElNotification({
+        title: "成功",
+        message: "登录成功",
+        type: "success",
+      });
+      router.push({ name: "Home" });
+    } else {
+      ElNotification({
+        title: "错误",
+        message: "请确认服务协议以及隐私政策",
+        type: "error",
+      });
+    }
   } else {
     ElNotification({
       title: "错误",
@@ -93,8 +102,6 @@ const goHome = async () => {
     });
   }
 };
-
-const checked2 = ref(false);
 
 const imageurl = ref([
   "../../src/images/appm3V1L6Y3C3podIGShCo686dXRRY4i.png",
