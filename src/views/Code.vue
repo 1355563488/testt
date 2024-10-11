@@ -7,7 +7,6 @@
         collapse="true"
         @open="handleOpen"
         @close="handleClose"
-        router="true"
       >
         <el-menu-item index="1">
           <el-icon>
@@ -156,7 +155,12 @@
           </el-icon>
           <template #title>疑问</template>
         </el-menu-item>
-        <el-menu-item class="text-center" text @click="drawer = true">
+        <el-menu-item
+          class="text-center"
+          index="15"
+          text
+          @click="drawer = true"
+        >
           <el-icon>
             <Icon
               icon="stash:user-avatar-duotone"
@@ -182,7 +186,7 @@
             <li>切换语言</li>
             <li>工单中心</li>
             <li>更新日志</li>
-            <li @click="quit">退出</li>
+            <li>退出</li>
           </ul>
         </el-drawer>
       </el-menu>
@@ -194,31 +198,108 @@
           </div></el-header
         >
         <el-main class="bg-[#fff] p-0">
+          <!-- 创建仓库 -->
           <div class="h-[3.31vw] pl-[20px] leading-[3.31vw] relative">
-            <router-link
-              to="/code/RecentlyVisited"
-              class="pb-[20px] text-center focus:border-b-2 border-[#306fde] h-[2.31vw]"
-              >最近访问</router-link
-            >
-            <router-link
-              to="/code/Warehouses"
-              class="pb-[20px] text-center focus:border-b-2 border-[#306fde] ml-[1.5vw] h-[2.31vw]"
-              >全部仓库</router-link
-            >
-            <router-link
-              to="/code/SourceRepositories"
-              class="pb-[20px] text-center ml-[1.5vw] h-[2.31vw] focus:border-b-2 border-[#306fde]"
-              >开源仓库</router-link
-            >
-            <div
-              class="inline-block bg-[#2c323c] rounded-md text-white h-[2.15vw] leading-[2.15vw] px-[5px] absolute right-[1.67vw] bottom-[0.5vw]"
-            >
-              创建代码仓库
+            <!-- 创建代码仓库以及返回按钮 -->
+            <div>
+              <el-button circle class="shadow-lg mb-[5px]" @click="BackHome"
+                ><Icon
+                  icon="line-md:arrow-left"
+                  width="1.15vw"
+                  height="1.15vw"
+                  style="color: #2469f6"
+              /></el-button>
+              <div class="font-semibold pl-[15px] text-[20px] inline-block">
+                创建代码仓库
+              </div>
             </div>
+            <!-- 所属项目以及下拉菜单 -->
+            <div>
+              <div class="font-semibold">
+                所属项目<span class="text-[#d94547] ml-[3px]">*</span>
+              </div>
+              <div class="w-[22vw]">
+                <el-select v-model="input.project" placeholder="所属项目">
+                  <el-option label="项目1" value="项目1i" />
+                  <el-option label="项目2" value="项目2" />
+                </el-select>
+              </div>
+            </div>
+            <!-- 仓库类型以及名称 -->
+            <div>
+              <div>
+                <div class="font-semibold inline-block">
+                  仓库类型<span class="text-[#d94547] ml-[3px]">*</span>
+                </div>
+                <div class="font-semibold inline-block ml-[4vw]">
+                  仓库名称<span class="text-[#d94547] ml-[3px]">*</span>
+                </div>
+              </div>
+              <el-input
+                v-model="input.name"
+                style="max-width: 600px"
+                maxlength="100"
+                show-word-limit
+                type="text"
+                placeholder="仓库名称只支持字母、数字、下划线(_)、中划线(-)和点(.)的组合"
+                class="w-[39vw]"
+              >
+                <template #prepend
+                  ><Icon
+                    icon="devicon:git"
+                    width="1.15vw"
+                    height="1.15vw"
+                    class="m-[2px] mr-[15px]"
+                  />GIT仓库</template
+                >
+              </el-input>
+            </div>
+            <!-- 仓库描述以及 文本域-->
+            <div>
+              <div class="font-semibold">仓库描述</div>
+              <el-input
+                v-model="input.describe"
+                style="width: 39vw"
+                type="textarea"
+                placeholder=" 请输入仓库描述"
+                rows="5"
+              />
+            </div>
+            <!-- 初始化仓库选项 -->
+            <div>
+              <div>初始化仓库</div>
+              <div class="flex flex-col">
+                <el-checkbox v-model="input.readme" label="生成README文件" />
+                <el-checkbox
+                  v-model="inputProps.gitignore"
+                  label="添加.gitignore"
+                />
+                <el-checkbox v-model="checked1" disabled
+                  >添加分支模型(仓库创建后将根据所选模型创建分支)</el-checkbox
+                >
+              </div>
+            </div>
+            <!-- 是否开源选项 -->
+            <div>
+              <div>是否开源</div>
+              <div>
+                <el-radio-group
+                  v-model="input.radio"
+                  class="flex flex-col justify-start relative"
+                >
+                  <el-radio :value="true"
+                    >私有仓库(仅对仓库成员可见，仓库成员可访问仓库。)</el-radio
+                  >
+                  <el-radio
+                    :value="false"
+                    class="absolute right-[155px] bottom-[0px]"
+                    >公开仓库</el-radio
+                  >
+                </el-radio-group>
+              </div>
+            </div>
+            <el-button type="primary" @click="SubmitEvent">提交</el-button>
           </div>
-          <hr />
-
-          <div><RouterView></RouterView></div>
         </el-main>
       </el-container>
     </el-container>
@@ -227,14 +308,56 @@
 
 <script lang="ts" setup>
 import { Icon } from "@iconify/vue/dist/iconify.js";
+import { inputProps } from "element-plus";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import to from "await-to-js";
+import { CodeRepositories } from "../servlcee/index";
 
-const router = useRouter();
 const drawer = ref(false);
-
-const quit = () => {
-  router.push("/Login");
+const router = useRouter();
+const input = ref({
+  name: "",
+  describe: "",
+  project: "",
+  readme: false,
+  gitignore: "",
+  radio: true,
+});
+const BackHome = () => {
+  router.back();
+};
+const SubmitEvent = async () => {
+  if (input.value.name) {
+    if (input.value.project) {
+      const loginData = {
+        access_token: "142919abd220cac7e153237520a527fe",
+        name: input.value.name,
+        description: input.value.describe,
+        private: input.value.radio,
+        auto_init: input.value.readme,
+      };
+      ElNotification({
+        title: "成功",
+        message: "创建成功",
+        type: "success",
+      });
+      const [err, res] = await to(CodeRepositories(loginData));
+      router.push("/code/Warehouses");
+    } else {
+      ElNotification({
+        title: "错误",
+        message: "请选择所属项目",
+        type: "error",
+      });
+    }
+  } else {
+    ElNotification({
+      title: "错误",
+      message: "请填写仓库名称",
+      type: "error",
+    });
+  }
 };
 </script>
 
