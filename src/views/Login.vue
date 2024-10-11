@@ -77,7 +77,6 @@ const goHome = async () => {
     scope: import.meta.env.VITE_CLIENT_SCOPT,
   };
   const [err, res] = await to(token(loginData));
-  const resvalue = res.tostring();
   console.log(checked2.value);
   if (res.statusText === "OK") {
     if (checked2.value === true) {
