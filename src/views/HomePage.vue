@@ -210,6 +210,11 @@
               class="pb-[20px] text-center ml-[1.5vw] h-[2.31vw] focus:border-b-2 border-[#306fde]"
               >开源仓库</router-link
             >
+            <router-link
+              to="/code/RepositedSelect"
+              class="pb-[20px] text-center ml-[1.5vw] h-[2.31vw] focus:border-b-2 border-[#306fde]"
+              >仓库列表</router-link
+            >
             <div
               class="inline-block bg-[#2c323c] rounded-md text-white h-[2.15vw] leading-[2.15vw] px-[5px] absolute right-[1.67vw] bottom-[0.5vw]"
             >
@@ -218,7 +223,7 @@
           </div>
           <hr />
 
-          <div><RouterView></RouterView></div>
+          <div><RouterView /></div>
         </el-main>
       </el-container>
     </el-container>

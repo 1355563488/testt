@@ -7,9 +7,7 @@
       </p>
       <p class="text-[#686f7f]">版本发布可以用来标记、发布代码版本</p>
     </div>
-    <div
-      class="flex flex-row justify-center absolute top-[15.41vw] left-[26vw]"
-    >
+    <div class="flex flex-row justify-center absolute top-[15.41vw] left-[26vw]">
       <div>
         <img src="../../images/1.svg" alt="" class="ml-[35px]" />
         <p class="font-semibold">创建代码仓库</p>
@@ -25,9 +23,7 @@
       <div>
         <img src="../../images/2.svg" alt="" class="ml-[35px]" />
         <p class="font-semibold">合并请求</p>
-        <p class="w-[12.5vw] flex-wrap">
-          发起合并请求并邀请协作者Review变更内容
-        </p>
+        <p class="w-[12.5vw] flex-wrap">发起合并请求并邀请协作者Review变更内容</p>
       </div>
       <Icon
         class="mt-[3.02vw]"

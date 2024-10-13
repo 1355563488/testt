@@ -1,4 +1,3 @@
-import component from "element-plus/es/components/tree-select/src/tree-select-option.mjs";
 import { createWebHistory, createRouter } from "vue-router";
 
 const routes = [
@@ -11,6 +10,10 @@ const routes = [
     name: "Home",
     component: () => import("../src/views/HomePage.vue"),
     children: [
+      {
+        path: "",
+        component: () => import("../src/views/children/SourceRepositories.vue"),
+      },
       {
         path: "/code/RecentlyVisited",
         name: "RecentlyVisited",
@@ -25,6 +28,11 @@ const routes = [
         path: "/code/Warehouses",
         name: "Warehouses",
         component: () => import("../src/views/children/Warehouses.vue"),
+      },
+      {
+        path: "/code/RepositedSelect",
+        name: "RepositedSelect",
+        component: () => import("../src/views/children/RepositedSelect.vue"),
       },
     ],
   },

@@ -2,11 +2,7 @@
   <div class="w-[100vw] h-[55vw] flex">
     <div>
       <el-carousel class="w-[39.83vw] h-[54.62vw]">
-        <el-carousel-item
-          v-for="item in imageurl"
-          :key="item"
-          class="w-[39.83vw] h-[54.62vw]"
-        >
+        <el-carousel-item v-for="item in imageurl" :key="item" class="w-[39.83vw] h-[54.62vw]">
           <img :src="item" alt="" class="w-[39.83vw] h-[54.62vw]" />
         </el-carousel-item>
       </el-carousel>
@@ -18,11 +14,7 @@
         <div class="pl-[10vw] pr-[10vw]">
           <!-- 账号框 -->
           <div>
-            <el-input
-              class="w-[25.45vw] h-[3.61vw]"
-              v-model="input.username"
-              placeholder="邮箱"
-            />
+            <el-input class="w-[25.45vw] h-[3.61vw]" v-model="input.username" placeholder="邮箱" />
           </div>
           <!-- 密码框 -->
           <div class="mt-[1.08vw]">
@@ -59,6 +51,7 @@ import { ref } from "vue";
 import { token } from "../servlcee/index";
 import to from "await-to-js";
 import { useRouter } from "vue-router";
+// import { postOAuthTokenAPI } from "../api/login";
 
 const router = useRouter();
 const input = ref({
@@ -74,10 +67,11 @@ const goHome = async () => {
     password: input.value.password,
     client_id: import.meta.env.VITE_CLIENT_ID,
     client_secret: import.meta.env.VITE_CLIENT_SECRET,
-    scope: import.meta.env.VITE_CLIENT_SCOPT,
+    scope: import.meta.env.VITE_CLIENT_SCOPE,
   };
   const [err, res] = await to(token(loginData));
-  console.log(checked2.value);
+  console.log(res);
+
   if (res.statusText === "OK") {
     if (checked2.value === true) {
       ElNotification({
@@ -86,7 +80,6 @@ const goHome = async () => {
         type: "success",
       });
       console.log(res);
-
       router.push({ name: "Home" });
     } else {
       ElNotification({
@@ -103,6 +96,10 @@ const goHome = async () => {
     });
   }
 };
+// const goHome = async () => {
+//   const res = await postOAuthTokenAPI(input.value);
+//   console.log(res);
+// };
 
 const imageurl = ref([
   "../../src/images/appm3V1L6Y3C3podIGShCo686dXRRY4i.png",

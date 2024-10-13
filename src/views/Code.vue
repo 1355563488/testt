@@ -31,11 +31,7 @@
         </el-menu-item>
         <el-menu-item index="3">
           <el-icon
-            ><Icon
-              icon="arcticons:chaton-ai"
-              width="1.15vw"
-              height="1.15vw"
-              style="color: black"
+            ><Icon icon="arcticons:chaton-ai" width="1.15vw" height="1.15vw" style="color: black"
           /></el-icon>
           <template #title>AI</template>
         </el-menu-item>
@@ -71,21 +67,13 @@
         </el-menu-item>
         <el-menu-item index="7">
           <el-icon
-            ><Icon
-              icon="arcticons:marketwatch"
-              width="1.15vw"
-              height="1.15vw"
-              style="color: black"
+            ><Icon icon="arcticons:marketwatch" width="1.15vw" height="1.15vw" style="color: black"
           /></el-icon>
           <template #title>洞察</template>
         </el-menu-item>
         <el-menu-item index="8">
           <el-icon
-            ><Icon
-              icon="ph:book-open-text"
-              width="1.15vw"
-              height="1.15vw"
-              style="color: black"
+            ><Icon icon="ph:book-open-text" width="1.15vw" height="1.15vw" style="color: black"
           /></el-icon>
           <template #title>知识</template>
         </el-menu-item>
@@ -113,34 +101,19 @@
         </el-menu-item>
         <el-menu-item class="text-center" index="11">
           <el-icon>
-            <Icon
-              icon="hugeicons:more-01"
-              width="1.15vw"
-              height="1.15vw"
-              style="color: #686f7f"
-            />
+            <Icon icon="hugeicons:more-01" width="1.15vw" height="1.15vw" style="color: #686f7f" />
           </el-icon>
           <template #title>更多</template>
         </el-menu-item>
         <el-menu-item class="text-center" index="12">
           <el-icon>
-            <Icon
-              icon="line-md:bell"
-              width="1.15vw"
-              height="1.15vw"
-              style="color: #686f7f"
-            />
+            <Icon icon="line-md:bell" width="1.15vw" height="1.15vw" style="color: #686f7f" />
           </el-icon>
           <template #title>消息</template>
         </el-menu-item>
         <el-menu-item class="text-center" index="13">
           <el-icon>
-            <Icon
-              icon="tdesign:setting"
-              width="1.15vw"
-              height="1.15vw"
-              style="color: #686f7f"
-            />
+            <Icon icon="tdesign:setting" width="1.15vw" height="1.15vw" style="color: #686f7f" />
           </el-icon>
           <template #title>设置</template>
         </el-menu-item>
@@ -155,12 +128,7 @@
           </el-icon>
           <template #title>疑问</template>
         </el-menu-item>
-        <el-menu-item
-          class="text-center"
-          index="15"
-          text
-          @click="drawer = true"
-        >
+        <el-menu-item class="text-center" index="15" text @click="drawer = true">
           <el-icon>
             <Icon
               icon="stash:user-avatar-duotone"
@@ -191,11 +159,8 @@
         </el-drawer>
       </el-menu>
       <el-container>
-        <el-header
-          class="flex justify-between h-[4.5vw] border-b-[1px] border-[#caced9] bg-[#fff]"
-          ><div class="font-semibold leading-[60px] h-[60px]">
-            代码仓库
-          </div></el-header
+        <el-header class="flex justify-between h-[4.5vw] border-b-[1px] border-[#caced9] bg-[#fff]"
+          ><div class="font-semibold leading-[60px] h-[60px]">代码仓库</div></el-header
         >
         <el-main class="bg-[#fff] p-0">
           <!-- 创建仓库 -->
@@ -209,9 +174,7 @@
                   height="1.15vw"
                   style="color: #2469f6"
               /></el-button>
-              <div class="font-semibold pl-[15px] text-[20px] inline-block">
-                创建代码仓库
-              </div>
+              <div class="font-semibold pl-[15px] text-[20px] inline-block">创建代码仓库</div>
             </div>
             <!-- 所属项目以及下拉菜单 -->
             <div>
@@ -270,10 +233,7 @@
               <div>初始化仓库</div>
               <div class="flex flex-col">
                 <el-checkbox v-model="input.readme" label="生成README文件" />
-                <el-checkbox
-                  v-model="inputProps.gitignore"
-                  label="添加.gitignore"
-                />
+                <el-checkbox v-model="inputProps.gitignore" label="添加.gitignore" />
                 <el-checkbox v-model="checked1" disabled
                   >添加分支模型(仓库创建后将根据所选模型创建分支)</el-checkbox
                 >
@@ -283,16 +243,11 @@
             <div>
               <div>是否开源</div>
               <div>
-                <el-radio-group
-                  v-model="input.radio"
-                  class="flex flex-col justify-start relative"
-                >
+                <el-radio-group v-model="input.radio" class="flex flex-col justify-start relative">
                   <el-radio :value="true"
                     >私有仓库(仅对仓库成员可见，仓库成员可访问仓库。)</el-radio
                   >
-                  <el-radio
-                    :value="false"
-                    class="absolute right-[155px] bottom-[0px]"
+                  <el-radio :value="false" class="absolute right-[155px] bottom-[0px]"
                     >公开仓库</el-radio
                   >
                 </el-radio-group>
